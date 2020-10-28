@@ -54,9 +54,13 @@ conf_int=function(X,y,c,d=0,a=0.05){
 
 #Name home team and away team to estimate difference in team effects plus home advantage
 teams
-HomeTm = "New England Patriots"
-AwayTm = "Las Vegas Raiders"
-colnames(X)
+AwayTm = "Atlanta Falcons"
+HomeTm = "Carolina Panthers"
+#Enter the moneyline
+line_away <- 108
+line_home <- -126
+spread <- 2.5
+#colnames(X)
 c <- c(1,rep(0, length(teams)))
 c[colnames(X) == HomeTm] <- 1
 c[colnames(X) == AwayTm] <- -1
@@ -68,17 +72,32 @@ sigma <- sqrt(sigsq <- anova(lm(Y ~ X+0))[2,3])
 AwayProb <- pnorm(0,mean = mu, sd = sigma)
 HomeProb <- pnorm(0,mean = mu, sd = sigma, lower.tail = FALSE)
 print(paste("The estimated win probability for the ", AwayTm, "at", HomeTm, "is", AwayProb, sep = " " ))
+#Compute the expected winnings for a $100 bet
+#Payouts for away then home
+line <- c(line_away, line_home)
+payouts <- c(100,100)
+for(j in 1:2){
+  l <- line[j]
+  if (l < 0){
+      payouts[j] <- 100^2/-l 
+  }else{
+    payouts[j] <- l
+  }
+}
+exp_away <- AwayProb*payouts[1] - 100*HomeProb
+exp_home <- HomeProb*payouts[2] - 100*AwayProb
+print(paste("Exp winnings for", AwayTm, "is", exp_away, sep = " "))
+print(paste("Exp winnings for", HomeTm, "is", exp_home, sep = " "))
 
 #Here is some code to plot the curve
-spread <- 7
 x <- seq(-30,30)
 y <- dnorm(x, mean = mu, sd = sigma)
 title = paste("Spread =", spread, "Prediction =", round(mu,2), "std. eror =", round(sigma,2), sep = " ")
 plot(x,y, type = "l", xlab = paste(HomeTm, "margin of victory", sep = " "), ylab = "Normal Density", main= title)
 abline(v = mu, col = "red")
-abline(v = 3, col = "green")
+abline(v = spread, col = "green")
 abline(v = 0, lty = "dashed")
 
-#What is the probability of beating the spread?
+#What is the probability of the home team beating the spread?
 spreadprob <- pnorm(spread, mean = mu, sd = sigma, lower.tail = FALSE)
 print(paste("The prob of", HomeTm, "beating the spread is", round(spreadprob, 4), sep = " "))
