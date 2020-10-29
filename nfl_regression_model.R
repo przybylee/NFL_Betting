@@ -54,8 +54,8 @@ conf_int=function(X,y,c,d=0,a=0.05){
 
 #Name home team and away team to estimate difference in team effects plus home advantage
 teams
-AwayTm = "Atlanta Falcons"
-HomeTm = "Carolina Panthers"
+AwayTm = "New England Patriots"
+HomeTm = "Buffalo Bills"
 #Enter the moneyline
 line_away <- 108
 line_home <- -126
