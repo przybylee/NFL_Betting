@@ -54,12 +54,12 @@ conf_int=function(X,y,c,d=0,a=0.05){
 
 #Name home team and away team to estimate difference in team effects plus home advantage
 teams
-AwayTm = "New England Patriots"
-HomeTm = "Buffalo Bills"
+AwayTm = "Green Bay Packers"
+HomeTm = "Los Angeles Rams"
 #Enter the moneyline
-line_away <- 108
-line_home <- -126
-spread <- 2.5
+line_away <- 290
+line_home <- -345
+spread <- 7
 #colnames(X)
 c <- c(1,rep(0, length(teams)))
 c[colnames(X) == HomeTm] <- 1
@@ -101,3 +101,4 @@ abline(v = 0, lty = "dashed")
 #What is the probability of the home team beating the spread?
 spreadprob <- pnorm(spread, mean = mu, sd = sigma, lower.tail = FALSE)
 print(paste("The prob of", HomeTm, "beating the spread is", round(spreadprob, 4), sep = " "))
+
