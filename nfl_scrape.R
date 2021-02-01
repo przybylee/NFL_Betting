@@ -64,7 +64,7 @@ scores <- c()
 #some quick changes can be made to get playoffs
 
 #AWAY TEAM SCORE APPEARS FIRST...
-for (year in 2019:2020) {
+for (year in 2020:2020) {
   for (week in 1:17) {
     #manipulate base string to get a specific week in a specific season
     date <- paste0("years/", year, "/week_", week, ".htm")
@@ -115,6 +115,7 @@ for (year in 2019:2020) {
 scores <- as.data.frame(scores)
 names(scores) <- c("Team", "Score", "Year", "Week")
 head(scores)
+tail(scores)
 summary(scores)
 scores <- scores[!is.na(scores$Score),]
 write.csv(scores, "nfl_scores_2019_2020.csv")

@@ -54,12 +54,12 @@ conf_int=function(X,y,c,d=0,a=0.05){
 
 #Name home team and away team to estimate difference in team effects plus home advantage
 teams
-AwayTm = "Green Bay Packers"
-HomeTm = "Los Angeles Rams"
+AwayTm = "Kansas City Chiefs"
+HomeTm = "Tampa Bay Buccaneers"
 #Enter the moneyline
-line_away <- 290
-line_home <- -345
-spread <- 7
+line_away <- -163
+line_home <- 143
+spread <- -3
 #colnames(X)
 c <- c(1,rep(0, length(teams)))
 c[colnames(X) == HomeTm] <- 1
