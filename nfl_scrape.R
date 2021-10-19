@@ -56,7 +56,7 @@ nfl_teams <- c("Green Bay Packers",
 l <- nchar(nfl_teams)
 
 date_list <- c()
-year_step <- 2009
+#year_step <- 2009
 score_step <- 3
 scores <- c()
 
@@ -64,8 +64,8 @@ scores <- c()
 #some quick changes can be made to get playoffs
 
 #AWAY TEAM SCORE APPEARS FIRST...
-for (year in 2020:2020) {
-  for (week in 1:17) {
+for (year in 2021:2021) {
+  for (week in 1:5) {
     #manipulate base string to get a specific week in a specific season
     date <- paste0("years/", year, "/week_", week, ".htm")
     paste0(nfl_base, date) -> url
