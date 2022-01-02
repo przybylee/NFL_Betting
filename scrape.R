@@ -55,7 +55,7 @@ scrape_games <- function(ssn = 2021, wk_st = 1, wk_stop){
   score_step <- 3
   scores <- c()
   for (year in 2021:2021) {
-    for (week in 1:5) {
+    for (week in 1:wk_stop) {
       #manipulate base string to get a specific week in a specific season
       date <- paste0("years/", year, "/week_", week, ".htm")
       paste0(nfl_base, date) -> url
