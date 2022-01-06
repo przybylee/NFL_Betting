@@ -10,3 +10,6 @@ write.csv(games, "nfl_scores_2021.csv")
 
 games <- read.csv("nfl_scores_2021.csv")
 head(games)
+
+teams <-sort(unique(games$Team))
+teams
