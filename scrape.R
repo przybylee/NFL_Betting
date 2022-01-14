@@ -55,47 +55,47 @@ scrape_games <- function(ssn = 2021, wk_st = 1, wk_stop){
   score_step <- 3
   scores <- c()
   for (year in 2021:2021) {
-    for (week in 1:wk_stop) {
+    for (week in wk_st:wk_stop) {
       #manipulate base string to get a specific week in a specific season
       date <- paste0("years/", year, "/week_", week, ".htm")
       paste0(nfl_base, date) -> url
-      
+
       #execute string scrape
-      game <- read_html(url) %>% 
+      game <- read_html(url) %>%
         html_node("#content") %>%
         html_text()
-      
+
       #getting the teams that played during the current week
-      hold <- sapply(nfl_teams, regexpr, game) 
+      hold <- sapply(nfl_teams, regexpr, game)
       played <- hold[hold > 0]
       ord <- order(played)
-      
+
       #ordering teams that played; eliminates having to check entire list
       played <- played[ord]
       l_play <- l[hold > 0][ord]
-      
+
       #number of teams that played
       n <- length(played)
-      
+
       #getting score information
       day_data <- c()
       if (n > 0) {
         for (t in 1:n) {
           #stepping through string
           score_loc <- played[t] + l_play[t] + score_step
-          
+
           #collecting scores... plus garbage
           score_text <- substr(game, score_loc, score_loc + 3)
-          
+
           #read score
-          score <- readr::parse_number(score_text) 
-          
+          score <- readr::parse_number(score_text)
+
           #add to weekly data frame
           new <- c(names(played)[t], score, year, week)
           day_data <- rbind(day_data, new)
         }
       }
-      
+
       #add to entire list of scores
       scores <- rbind(scores, day_data)
     }
